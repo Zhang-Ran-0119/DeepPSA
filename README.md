@@ -9,6 +9,10 @@ Here we export our anaconda environment as the file "environment.yml". You can u
  conda env create -f environment.yml
  conda activate PSA
 ```
+## Data
+The original data and processed data can be obtained from the following links:
+https://drive.google.com/drive/folders/1JaaxdXz65unBQWOosVU-q0DxPHNLQTnG
+
 ## Usage For Researchers
 
 If you want to train your own model, you can run it from the command line,
