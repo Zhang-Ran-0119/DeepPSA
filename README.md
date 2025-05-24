@@ -13,6 +13,33 @@ Here we export our anaconda environment as the file "environment.yml". You can u
 The original data and processed data can be obtained from the following links:
 [https://drive.google.com/drive/folders/1JaaxdXz65unBQWOosVU-q0DxPHNLQTnG](https://drive.google.com/drive/folders/1JaaxdXz65unBQWOosVU-q0DxPHNLQTnG?usp=sharing)
 
+## Downloading Checkpoints via Git LFS
+ If git clone fails to download the checkpoints, you can use Git LFS to download manually:
+ ```
+mkdir Model
+cd Model
+git init
+git remote add origin https://github.com/Zhang-Ran-0119/DeepPSA.git
+git fetch origin main
+git checkout main
+git lfs pull --include="PSA/Model.pth"
+```
+#### If Git LFS is not installed on your system, install it using the commands below:
+For Ubuntu / Debian:
+```
+sudo apt update
+sudo apt install git-lfs
+```
+For CentOS / RHEL:
+```
+sudo yum install git-lfs
+```
+Then initialize Git LFS (only needed once):
+```
+git lfs install
+```
+ 
+
 ## Usage For Researchers
 
 If you want to train your own model, you can run it from the command line,
