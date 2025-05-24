@@ -6,7 +6,7 @@ To address this gap, we propose a deep learning-based computational model named 
 ## Prepare the environment
 Here we export our anaconda environment as the file "environment.yml". You can use the command:
 ```
- conda env create -f environment.yml
+ conda env create -f environment.yaml
  conda activate PSA
 ```
 ## Data
