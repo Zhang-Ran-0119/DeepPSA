@@ -14,7 +14,9 @@ The original data and processed data can be obtained from the following links:
 [https://drive.google.com/drive/folders/1JaaxdXz65unBQWOosVU-q0DxPHNLQTnG](https://drive.google.com/drive/folders/1JaaxdXz65unBQWOosVU-q0DxPHNLQTnG?usp=sharing)
 
 ## Downloading Checkpoints via Git LFS
- If git clone fails to download the checkpoints, you can use Git LFS to download manually:
+The model checkpoints are stored in the `PSA` folder. Among them, `Model.pth` and `Optimizer.pth` are the pretrained model and optimizer obtained using the small molecule dataset, while `FinetuneModel.pth` and `FinetuneOptimizer.pth` are the final fine-tuned model and optimizer.
+
+The git clone maight fail to download the checkpoints, you can use Git LFS to download manually:
  ```
 mkdir Model
 cd Model
@@ -22,7 +24,7 @@ git init
 git remote add origin https://github.com/Zhang-Ran-0119/DeepPSA.git
 git fetch origin main
 git checkout main
-git lfs pull --include="PSA/Model.pth"
+git lfs pull --include="PSA/FinetuneModel.pth"
 ```
 #### If Git LFS is not installed on your system, install it using the commands below:
 For Ubuntu / Debian:
@@ -52,6 +54,7 @@ running:
 ```
 python PSA.py <data.csv>
 ```
+The final results will be stored in `result.csv`.
 
 ## Online Server
 We deployed a pre-trained model on a dedicated server, which is publicly available at [https://bailab.siais.shanghaitech.edu.cn/services/psa], to make it easy for biomedical researcher users to utilize DeepSA in their research activity.
