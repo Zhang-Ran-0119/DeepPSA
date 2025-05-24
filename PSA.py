@@ -35,41 +35,14 @@ def test(model, validloader, device):
             # score = score + torch.nn.functional.softmax(output, 1)[:, 1].cpu().tolist()
             labels = labels + label.cpu().tolist()
             label_pre = label_pre + torch.max(output, 1)[1].cpu().tolist()
-            label_true = label_true + label.cpu().tolist()
             smiles.extend(smile)
     df = pd.DataFrame({
         'smiles': smiles,
-        'labels': labels,
         'es': score2,
         'hs': score,
         'lable_pre': label_pre
     })
-    #df.to_csv('result/testout.csv', mode='a', header=False, index=False)
-    acc = f['ACC'](label_true, score)
-    f1 = f['f1'](label_true, score)
-    print(score)
-    roc_auc = f['AUROC'](label_true, score)
-    precision = f['precision'](label_true, score)
-    recall = f['recall'](label_true, score)
-    specificity = f['specificity'](label_true, score)
-    sensitivity = f['sensitivity'](label_true, score)
-    threshold = 0.5
-    # df1 = pd.DataFrame({
-    #     'ACC': [acc],
-    #     'Specificity': [specificity],
-    #     'Sensitivity': [sensitivity],
-    #     'f1': [f1],
-    #     'ROC': [roc_auc]
-    # })
-    # df1.to_csv('./result/testout.csv', mode='a', header=False, index=False)
-    print("acc:", acc)
-    print("specificity:", specificity)
-    print("sensitivity:", sensitivity)
-    print("f1:", f1)
-    print("roc_auc:", roc_auc)
-    print("precision:", precision)
-    print("recall:", recall)
-    print("threshold:", threshold)
+    df.to_csv('result.csv', mode='w', header=True, index=False)
 
 
 
@@ -81,11 +54,11 @@ def _collate_fn(batch):
     labels = torch.tensor(labels, dtype=torch.long)
     return g, labels,smiles
 
-BATCH_SIZE = 1
+BATCH_SIZE = 64
 test_data=sys.argv[1]
 
 
-test_dataset = Data_Process(path=test_data, name='mytest', save_dir='data_process/mytest', verbose=True)
+test_dataset = Data_Process(path=test_data, name='test', save_dir='data_process/mytest', verbose=True)
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=_collate_fn)
 
 
@@ -103,7 +76,7 @@ network=PSA_models['GCN']
 device= torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("device:",device)
 
-state_dict = torch.load('PSA/Model.pth')
+state_dict = torch.load('PSA/FinetuneModel.pth')
 current_state_dict = network.state_dict()
 for name, param in state_dict.items():
     if name in current_state_dict:
